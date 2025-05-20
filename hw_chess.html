@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>棋盤</title>
+    <style>
+      :root {
+        --font-main: "標楷體", serif;
+      }
+
+      .opacity-0 {
+        opacity: 0;
+      }
+
+      .color-r {
+        color: #d00 !important;
+      }
+
+      @media (max-width: 720px) {
+        main {
+          width: 90vw;
+          height: auto;
+          max-width: 90vw;
+          aspect-ratio: 1/1;
+        }
+        .side {
+          display: none !important;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      body {
+        min-height: 100vh;
+        min-width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: var(--font-main);
+        background: #fff;
+      }
+      .side {
+        width: 5vw;
+        font-size: clamp(24px, 2.8vw, 42px);
+        writing-mode: vertical-lr;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      main {
+        position: relative;
+        aspect-ratio: 1/1.1;
+        width: 90vw;
+        max-width: 750px;
+        height: auto;
+        border: 1px solid #000;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #chess {
+        width: 95%;
+        height: 95%;
+        aspect-ratio: 1/1.1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+      }
+
+      .chess-content {
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1%;
+      }
+
+      .chess-item {
+        aspect-ratio: 1/1;
+        width: calc(100% / 9);
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(24px, 5vw, 48px);
+        color: #000;
+        background-color: #fff;
+        border-radius: 50%;
+        outline: 1px solid #000;
+        z-index: 9999;
+      }
+
+      #board {
+        width: 85%;
+        height: 85%;
+        aspect-ratio: 1/1.1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        outline: 1px solid #000;
+        outline-offset: 5px;
+      }
+
+      .box-content {
+        width: 100%;
+        height: calc(100% / 9);
+        display: flex;
+      }
+
+      .box {
+        width: calc(100% / 8);
+        height: 100%;
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+        position: relative;
+      }
+
+      .text {
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .text div {
+        font-size: 3rem;
+        width: 50%;
+        text-align: center;
+      }
+
+      .line-1 {
+        background: linear-gradient(
+          45deg,
+          transparent 50%,
+          #000 50%,
+          #000 51%,
+          transparent 51%
+        );
+      }
+      .line-2 {
+        background: linear-gradient(
+          -45deg,
+          transparent 50%,
+          #000 50%,
+          #000 51%,
+          transparent 51%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="side">棋盤裡，車無輪，馬無韁，叫聲將軍提防提防</div>
+    <main>
+      <section id="chess">
+        <div class="chess-content">
+          <div class="chess-item">車</div>
+          <div class="chess-item">馬</div>
+          <div class="chess-item">象</div>
+          <div class="chess-item">士</div>
+          <div class="chess-item">將</div>
+          <div class="chess-item">士</div>
+          <div class="chess-item">象</div>
+          <div class="chess-item">馬</div>
+          <div class="chess-item">車</div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">包</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">包</div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item">卒</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">卒</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">卒</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">卒</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item">卒</div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item color-r">兵</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">兵</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">兵</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">兵</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">兵</div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">炮</div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item color-r">炮</div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+          <div class="chess-item opacity-0"></div>
+        </div>
+        <div class="chess-content">
+          <div class="chess-item color-r">俥</div>
+          <div class="chess-item color-r">傌</div>
+          <div class="chess-item color-r">相</div>
+          <div class="chess-item color-r">仕</div>
+          <div class="chess-item color-r">帥</div>
+          <div class="chess-item color-r">仕</div>
+          <div class="chess-item color-r">相</div>
+          <div class="chess-item color-r">傌</div>
+          <div class="chess-item color-r">俥</div>
+        </div>
+      </section>
+      <section id="board">
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box line-1"></div>
+          <div class="box line-2"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box line-2"></div>
+          <div class="box line-1"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content text">
+          <div class="row">楚河</div>
+          <div class="row">漢界</div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box line-1"></div>
+          <div class="box line-2"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+        <div class="box-content">
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box line-2"></div>
+          <div class="box line-1"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+          <div class="box"></div>
+        </div>
+      </section>
+    </main>
+    <div class="side">圖畫裡，龍不吟，虎不嘯，小小書僮可笑可笑</div>
+  </body>
+</html>
